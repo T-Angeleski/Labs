@@ -55,13 +55,13 @@ int main() {
     1. Flips    10.00 x 3 = 30.00
     2. CocaCola 75.00 x 2 = 150.00
     3. ChokoBanana  5.00 x 10 = 50.00
-    Total: 230.00 
+    Total: 230.00 */
 
 
     int n;
     scanf("%d",&n);
     proizvod listaProizvodi[50];
-    // Flips    10.00 x 3 = 30.00 */
+    // Flips    10.00 x 3 = 30.00 
 
     float total=0,vkCena;
 
