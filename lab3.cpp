@@ -127,20 +127,7 @@ class Dogovor
             char * p1 = pot[1].getEMBG();
             char * p2 = pot[2].getEMBG();
             
-            for(int i=0; i<13; i++) {
-                if(p0[i] != p1[i]) {
-                    return false;
-                }
-
-                if(p1[i] != p2[i]) {
-                    return false;
-                }
-
-                if(p0[i] != p2[i]) {
-                    return false;
-                }
-            }
-            return true;
+            cout<<embg1;
         }
 };
 
