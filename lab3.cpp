@@ -77,6 +77,74 @@ class Car{
     
 };
 
+class Potpisuvac
+{
+	//vasiot kod ovde
+    char ime[20], prezime[20], EMBG[14];
+
+    public:
+        Potpisuvac() {
+            strcpy(ime, "Teodor");
+            strcpy(prezime, "Angeleski");
+            strcpy(EMBG, "1234567891234");
+        }
+
+        Potpisuvac(char * _ime, char* _prezime, char * _embg) {
+            strcpy(ime, _ime);
+            strcpy(prezime, _prezime);
+            strcpy(EMBG, _embg);
+        }
+
+        Potpisuvac(const Potpisuvac & p) {
+            strcpy(ime, p.ime);
+            strcpy(prezime, p.prezime);
+            strcpy(EMBG, p.EMBG);
+        }
+
+        char* getEMBG() {
+            return EMBG;
+        }
+};
+class Dogovor
+{
+    //vasiot kod ovde
+    int brDogovor;
+    char katDogovor[50];
+    Potpisuvac pot[3];
+
+    public:
+        Dogovor(int br, char *kat, Potpisuvac *pot) {
+            brDogovor = br;
+            strcpy(katDogovor, kat);
+            this->pot[0] = pot[0];
+            this->pot[1] = pot[1];
+            this->pot[2] = pot[2];
+        }
+
+
+        bool proverka() {
+            char * p0 = pot[0].getEMBG();
+            char * p1 = pot[1].getEMBG();
+            char * p2 = pot[2].getEMBG();
+            
+            for(int i=0; i<13; i++) {
+                if(p0[i] != p1[i]) {
+                    return false;
+                }
+
+                if(p1[i] != p2[i]) {
+                    return false;
+                }
+
+                if(p0[i] != p2[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+};
+
+
 Car cheaperThan(Car* cars, int numCars, float price) {
     for (int i = 0; i < numCars; i++)
         {
@@ -117,68 +185,92 @@ int main() {
 
 
 
-	char name[20];
-	char lastName[20];
-	int year;
-	int month;
-	int day;
-	float price;
+	// char name[20];
+	// char lastName[20];
+	// int year;
+	// int month;
+	// int day;
+	// float price;
 
-	int testCase;
-	cin >> testCase;
+	// int testCase;
+	// cin >> testCase;
 
-	if (testCase == 1) {
-		cin >> name;
-		cin >> lastName;
-		Person lik(name, lastName);
+	// if (testCase == 1) {
+	// 	cin >> name;
+	// 	cin >> lastName;
+	// 	Person lik(name, lastName);
 
-		cin >> year;
-		cin >> month;
-		cin >> day;
-		Date date(year, month, day);
+	// 	cin >> year;
+	// 	cin >> month;
+	// 	cin >> day;
+	// 	Date date(year, month, day);
 
-		cin >> price;
-		Car car(lik, date,  price);
+	// 	cin >> price;
+	// 	Car car(lik, date,  price);
 
-		car.print();
-	}
-	else if (testCase == 2) {
-		cin >> name;
-		cin >> lastName;
-		Person lik(name, lastName);
+	// 	car.print();
+	// }
+	// else if (testCase == 2) {
+	// 	cin >> name;
+	// 	cin >> lastName;
+	// 	Person lik(name, lastName);
 
-		cin >> year;
-		cin >> month;
-		cin >> day;
-		Date date(Date(year, month, day));
+	// 	cin >> year;
+	// 	cin >> month;
+	// 	cin >> day;
+	// 	Date date(Date(year, month, day));
 
-		cin >> price;
-		Car car(lik, date,  price);
-		car.print();
-	}
-	else {
-		int numCars;
-		cin >> numCars;
+	// 	cin >> price;
+	// 	Car car(lik, date,  price);
+	// 	car.print();
+	// }
+	// else {
+	// 	int numCars;
+	// 	cin >> numCars;
 
-		Car cars[10];
-		for (int i = 0; i < numCars; i++) {
-			cin >> name;
-			cin >> lastName;
-			Person lik(name, lastName);
+	// 	Car cars[10];
+	// 	for (int i = 0; i < numCars; i++) {
+	// 		cin >> name;
+	// 		cin >> lastName;
+	// 		Person lik(name, lastName);
 
-			cin >> year;
-			cin >> month;
-			cin >> day;
-			Date date(year, month, day);
+	// 		cin >> year;
+	// 		cin >> month;
+	// 		cin >> day;
+	// 		Date date(year, month, day);
 
-			cin >> price;
-			cars[i] = Car(lik, date,  price);
-		}
-        float priceLimit;
-        cin >> priceLimit;
-		cheaperThan(cars, numCars, priceLimit);
-	}
+	// 		cin >> price;
+	// 		cars[i] = Car(lik, date,  price);
+	// 	}
+    //     float priceLimit;
+    //     cin >> priceLimit;
+	// 	cheaperThan(cars, numCars, priceLimit);
+	// }
 
+    // ZADACA 2
+
+    char embg[13], ime[20], prezime[20], kategorija[20];
+    int broj, n;
+    cin >> n;
+    for(int i = 0; i < n; i++){
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p1(ime, prezime, embg);
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p2(ime, prezime, embg);
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p3(ime, prezime, embg);
+    	cin >> broj >> kategorija;
+    	Potpisuvac p[3];
+    	p[0] = p1; p[1] = p2; p[2] = p3;
+    	Dogovor d(broj, kategorija, p);
+        cout << "Dogovor " << broj << ":" << endl; 
+    	if(d.proverka() == true)
+    	    cout << "Postojat potpishuvaci so ist EMBG" << endl;
+    	else
+    	    cout << "Ne postojat potpishuvaci so ist EMBG" << endl;
+    }
+    
+    
 
 	return 0;
 }
