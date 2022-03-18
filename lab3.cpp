@@ -90,9 +90,12 @@ class Potpisuvac
         }
 
         Potpisuvac(char * _ime, char* _prezime, char * _embg) {
-            strcpy(ime, _ime);
-            strcpy(prezime, _prezime);
-            strcpy(EMBG, _embg);
+            strncpy(ime, _ime, 19);
+            ime[19] = 0;
+            strncpy(prezime, _prezime,19);
+            prezime[19] = 0;
+            strncpy(EMBG, _embg,13);
+            EMBG[13] = 0;
         }
 
         Potpisuvac(const Potpisuvac & p) {
@@ -101,7 +104,7 @@ class Potpisuvac
             strcpy(EMBG, p.EMBG);
         }
 
-        char* getEMBG() {
+        const char* getEMBG() {
             return EMBG;
         }
 };
@@ -123,11 +126,12 @@ class Dogovor
 
 
         bool proverka() {
-            char * p0 = pot[0].getEMBG();
-            char * p1 = pot[1].getEMBG();
-            char * p2 = pot[2].getEMBG();
-            
-            cout<<embg1;
+            for(int i=0;i<3;i++) {
+                if( !strcmp(pot[i].getEMBG(), pot[i+1].getEMBG()) ) {
+                    return true;
+                }
+            }
+            return false;
         }
 };
 
