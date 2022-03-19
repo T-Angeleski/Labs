@@ -108,33 +108,94 @@ class Potpisuvac
             return EMBG;
         }
 };
-class Dogovor
-{
-    //vasiot kod ovde
-    int brDogovor;
-    char katDogovor[50];
-    Potpisuvac pot[3];
+class Masa {
+    int width, length;
 
     public:
-        Dogovor(int br, char *kat, Potpisuvac *pot) {
-            brDogovor = br;
-            strcpy(katDogovor, kat);
-            this->pot[0] = pot[0];
-            this->pot[1] = pot[1];
-            this->pot[2] = pot[2];
+        Masa() {
+            length = 10;
+            width = 8;
         }
 
+        Masa(int width, int length) {
+            this->length = length;
+            this->width = width;
+        }
 
-        bool proverka() {
-            for(int i=0;i<3;i++) {
-                if( !strcmp(pot[i].getEMBG(), pot[i+1].getEMBG()) ) {
-                    return true;
-                }
-            }
-            return false;
+        void pecati() {
+            cout<<"Masa: "<<width<<" "<<length;
         }
 };
 
+class Soba{
+    Masa masa;
+    int roomWidth, roomLength;
+
+    public:
+        Soba() {}
+
+        Soba(int rw, int rl, Masa m) {
+            masa = m;
+            roomWidth = rw;
+            roomLength = rl;
+        }
+
+        void pecati() {
+            cout<<"Soba: "<<roomWidth<<" "<<roomLength<<" ";
+            masa.pecati();
+        }
+
+};
+
+class Kukja{
+    Soba soba;
+    char adress[50];
+
+    public:
+        Kukja() {}
+
+        Kukja(Soba _soba, char *_adress) {
+            strncpy(adress,  _adress, 49);
+            adress[49] = 0;
+
+            soba = _soba;
+        }
+
+        ~Kukja() {}
+
+        void pecati() {
+            cout<<"Adresa: "<<adress<<" ";
+            soba.pecati();
+            cout<<endl;
+        }
+};
+
+class Kukja{
+    Soba soba;
+    char adress[50];
+
+    public:
+        Kukja() {}
+
+        Kukja(Soba _soba, char *_adress) {
+            strncpy(adress,  _adress, 49);
+            adress[49] = 0;
+
+            soba = _soba;
+        }
+
+        ~Kukja() {}
+
+        void pecati() {
+            cout<<"Adresa: "<<adress<<" ";
+            soba.pecati();
+            cout<<endl;
+        }
+};
+
+
+
+//--------------FUNKCII----------------
 
 Car cheaperThan(Car* cars, int numCars, float price) {
     for (int i = 0; i < numCars; i++)
@@ -146,35 +207,6 @@ Car cheaperThan(Car* cars, int numCars, float price) {
 }
 
 int main() {
-    //     Во оваа задача треба да се внесат и испечатат податоци за автомобили.
-
-    // За еден автомобил (објект од класата Car) се чуваат следниве податоци:
-
-    //     сопственик (објект од класата Person)
-    //     датум на купување (објект од класата Date)
-    //     цена (float price), предодредена вредност 0
-
-    // За класата Car потребно е да се напише метод за печатење print() и метод за добивање на цената getPrice().
-
-    // Класата Date содржи три цели броеви (int year, month, day) кои претставуваат датум. За неа треба да се напише метод за печатење print(), предодреден (default) конструктор, конструктор со параметри и конструктор за копирање.
-
-    // Класата Person содржи име и презиме (низи од максимум 20 знаци, со предодредени вредности not specified), предодреден конструктор, конструктор со параметри и метод за печатење print().
-
-    // Методот за печатење кај класата Person изгледа вака: [name] [lastName].
-
-    // Методот за печатење кај класата Date изгледа вака: [year].[month].[day].
-
-    // Методот за печатење кај класата Car изгледа вака:
-
-    // owner.print()
-
-    // date.print()
-
-    // Price: [price]
-
-    // Покрај тоа, потребно е да се напише метод cheaperThan(Car* cars, int numCars, float price) кој ќе ги испечати сите објекти Car од низата cars со големина numCars чија цена е помала од price.
-
-
 
 	// char name[20];
 	// char lastName[20];
@@ -240,27 +272,45 @@ int main() {
 
     // ZADACA 2
 
-    char embg[13], ime[20], prezime[20], kategorija[20];
-    int broj, n;
-    cin >> n;
-    for(int i = 0; i < n; i++){
-    	cin >> embg >> ime >> prezime;
-    	Potpisuvac p1(ime, prezime, embg);
-    	cin >> embg >> ime >> prezime;
-    	Potpisuvac p2(ime, prezime, embg);
-    	cin >> embg >> ime >> prezime;
-    	Potpisuvac p3(ime, prezime, embg);
-    	cin >> broj >> kategorija;
-    	Potpisuvac p[3];
-    	p[0] = p1; p[1] = p2; p[2] = p3;
-    	Dogovor d(broj, kategorija, p);
-        cout << "Dogovor " << broj << ":" << endl; 
-    	if(d.proverka() == true)
-    	    cout << "Postojat potpishuvaci so ist EMBG" << endl;
-    	else
-    	    cout << "Ne postojat potpishuvaci so ist EMBG" << endl;
-    }
+    // char embg[13], ime[20], prezime[20], kategorija[20];
+    // int broj, n;
+    // cin >> n;
+    // for(int i = 0; i < n; i++){
+    // 	cin >> embg >> ime >> prezime;
+    // 	Potpisuvac p1(ime, prezime, embg);
+    // 	cin >> embg >> ime >> prezime;
+    // 	Potpisuvac p2(ime, prezime, embg);
+    // 	cin >> embg >> ime >> prezime;
+    // 	Potpisuvac p3(ime, prezime, embg);
+    // 	cin >> broj >> kategorija;
+    // 	Potpisuvac p[3];
+    // 	p[0] = p1; p[1] = p2; p[2] = p3;
+    // 	Dogovor d(broj, kategorija, p);
+    //     cout << "Dogovor " << broj << ":" << endl; 
+    // 	if(d.proverka() == true)
+    // 	    cout << "Postojat potpishuvaci so ist EMBG" << endl;
+    // 	else
+    // 	    cout << "Ne postojat potpishuvaci so ist EMBG" << endl;
+    // }
     
+    // ZADACA 4
+
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int masaSirina,masaDolzina;
+        cin>>masaSirina;
+        cin>>masaDolzina;
+        Masa m(masaSirina,masaDolzina);
+        int sobaSirina,sobaDolzina;
+        cin>>sobaSirina;
+        cin>>sobaDolzina;
+        Soba s(sobaSirina,sobaDolzina,m);
+        char adresa[30];
+        cin>>adresa;
+        Kukja k(s,adresa);
+        k.pecati();
+	}
     
 
 	return 0;
