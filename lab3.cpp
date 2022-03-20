@@ -108,6 +108,13 @@ class Potpisuvac
             return EMBG;
         }
 };
+
+//Zadaca 3
+
+
+
+
+//ZADACA 4
 class Masa {
     int width, length;
 
@@ -193,7 +200,67 @@ class Kukja{
         }
 };
 
+class Category {
+    private:
+        char name[20];
+    public:
+        Category(){
+            strcpy(name, "unnamed");
+        }
+        Category(char *_name) {
+            strcpy(name, _name);
+        }
+        ~Category() {}
 
+        void print() {
+            cout<<"Category: "<<name;
+        }
+};
+
+class NewsArticle {
+    private:
+        Category kategorija;
+        char title[30];
+    public:
+        NewsArticle(){
+            strcpy(title,"untitled");
+        }
+        NewsArticle(Category _kat, char *_title="untitled") {
+            kategorija = _kat;
+
+            strcpy(title, _title);
+        }
+        ~NewsArticle() {}
+
+        void print() {
+            cout<<"Article title: "<<title<<endl;
+            kategorija.print();
+        }
+};
+
+class FrontPage
+{
+private:
+    NewsArticle artikl;
+    float price;
+    int editionNumber;
+public:
+    FrontPage()=default;
+
+    FrontPage(NewsArticle _artikl, float _price=0, int _editionNumber=0) {
+        artikl = _artikl;
+        this->price = _price;
+        this->editionNumber = _editionNumber;
+    }
+
+    ~FrontPage() {}
+
+    void print() {
+        cout<<"Price: "<<price<<", Edition number: "<<editionNumber<<endl;
+        artikl.print();
+        cout<<endl;
+    }
+};
 
 //--------------FUNKCII----------------
 
@@ -295,23 +362,70 @@ int main() {
     
     // ZADACA 4
 
-    int n;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        int masaSirina,masaDolzina;
-        cin>>masaSirina;
-        cin>>masaDolzina;
-        Masa m(masaSirina,masaDolzina);
-        int sobaSirina,sobaDolzina;
-        cin>>sobaSirina;
-        cin>>sobaDolzina;
-        Soba s(sobaSirina,sobaDolzina,m);
-        char adresa[30];
-        cin>>adresa;
-        Kukja k(s,adresa);
-        k.pecati();
-	}
+    // int n;
+    // cin>>n;
+    // for(int i=0;i<n;i++){
+    //     int masaSirina,masaDolzina;
+    //     cin>>masaSirina;
+    //     cin>>masaDolzina;
+    //     Masa m(masaSirina,masaDolzina);
+    //     int sobaSirina,sobaDolzina;
+    //     cin>>sobaSirina;
+    //     cin>>sobaDolzina;
+    //     Soba s(sobaSirina,sobaDolzina,m);
+    //     char adresa[30];
+    //     cin>>adresa;
+    //     Kukja k(s,adresa);
+    //     k.pecati();
+	// }
     
+
+    char categoryName[20];
+	char articleTitle[30];
+	float price;
+	int editionNumber;
+
+	int testCase;
+	cin >> testCase;
+
+
+	if (testCase == 1) {
+		int iter;
+		cin >> iter;
+		while (iter > 0) {
+			cin >> categoryName;
+			cin >> articleTitle;
+			cin >> price;
+			cin >> editionNumber;
+			Category category(categoryName);
+			NewsArticle article(category, articleTitle);
+			FrontPage frontPage(article, price, editionNumber);
+			frontPage.print();
+			iter--;
+		}
+	}
+	else if (testCase == 2) {
+		cin >> categoryName;
+		cin >> price;
+		cin >> editionNumber;
+		Category category(categoryName);
+		NewsArticle article(category);
+		FrontPage frontPage(article, price, editionNumber);
+		frontPage.print();
+	}// test case 3
+	else if (testCase == 3) {
+		cin >> categoryName;
+		cin >> articleTitle;
+		cin >> price;
+		Category category(categoryName);
+		NewsArticle article(category, articleTitle);
+		FrontPage frontPage(article, price);
+		frontPage.print();
+	}
+    else {
+    	FrontPage frontPage = FrontPage();
+        frontPage.print();
+    }
 
 	return 0;
 }
