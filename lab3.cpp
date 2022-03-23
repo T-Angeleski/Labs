@@ -154,28 +154,7 @@ class Soba{
 
 };
 
-class Kukja{
-    Soba soba;
-    char adress[50];
 
-    public:
-        Kukja() {}
-
-        Kukja(Soba _soba, char *_adress) {
-            strncpy(adress,  _adress, 49);
-            adress[49] = 0;
-
-            soba = _soba;
-        }
-
-        ~Kukja() {}
-
-        void pecati() {
-            cout<<"Adresa: "<<adress<<" ";
-            soba.pecati();
-            cout<<endl;
-        }
-};
 
 class Kukja{
     Soba soba;
@@ -262,6 +241,64 @@ public:
     }
 };
 
+class Rabotnik {
+    char ime[30];
+    char prezime[30];
+    int plata;
+
+    public:
+    
+        Rabotnik() {}
+    
+        Rabotnik(char *_ime, char * _prezime, int _plata) {
+            strcpy(this->ime, _ime);
+            strcpy(this->prezime, _prezime);
+            this->plata = _plata;
+        }
+
+        int getPlata() {
+            return this->plata;
+        }
+
+        void print() {
+            cout<<this->ime<<" "<<this->prezime<<" "<<this->plata<<endl;
+        }
+};
+
+class Fabrika {
+    Rabotnik rabotnici[100];
+    int brojVraboteni;
+
+    public:
+        Fabrika() {}
+
+        Fabrika(Rabotnik  _rabotnici[100], int _brVraboteni) {
+            for(int i=0; i<_brVraboteni; i++) {
+                this->rabotnici[i] = _rabotnici[i];
+            }
+
+            this->brojVraboteni = _brVraboteni;
+        }
+
+        void pecatiVraboteni() {
+            cout<<"Site vraboteni:"<<endl;
+            for(int i=0; i< this->brojVraboteni ; i++) {
+                rabotnici[i].print();
+            }
+        }
+
+        void pecatiSoPlata(int n) {
+            cout<<"Vraboteni so plata povisoka od "<<n<<" :"<<endl;
+            for(int i=0; i< this->brojVraboteni ; i++) {
+                if(rabotnici[i].getPlata() >= n) {
+                    rabotnici[i].print();
+                }
+            }
+        }
+};
+
+
+
 //--------------FUNKCII----------------
 
 Car cheaperThan(Car* cars, int numCars, float price) {
@@ -275,111 +312,93 @@ Car cheaperThan(Car* cars, int numCars, float price) {
 
 int main() {
 
-	// char name[20];
-	// char lastName[20];
-	// int year;
-	// int month;
-	// int day;
-	// float price;
+    //ZADACA 1
+	char name[20];
+	char lastName[20];
+	int year;
+	int month;
+	int day;
+	float price;
 
-	// int testCase;
-	// cin >> testCase;
+	int testCase;
+	cin >> testCase;
 
-	// if (testCase == 1) {
-	// 	cin >> name;
-	// 	cin >> lastName;
-	// 	Person lik(name, lastName);
+	if (testCase == 1) {
+		cin >> name;
+		cin >> lastName;
+		Person lik(name, lastName);
 
-	// 	cin >> year;
-	// 	cin >> month;
-	// 	cin >> day;
-	// 	Date date(year, month, day);
+		cin >> year;
+		cin >> month;
+		cin >> day;
+		Date date(year, month, day);
 
-	// 	cin >> price;
-	// 	Car car(lik, date,  price);
+		cin >> price;
+		Car car(lik, date,  price);
 
-	// 	car.print();
-	// }
-	// else if (testCase == 2) {
-	// 	cin >> name;
-	// 	cin >> lastName;
-	// 	Person lik(name, lastName);
+		car.print();
+	}
+	else if (testCase == 2) {
+		cin >> name;
+		cin >> lastName;
+		Person lik(name, lastName);
 
-	// 	cin >> year;
-	// 	cin >> month;
-	// 	cin >> day;
-	// 	Date date(Date(year, month, day));
+		cin >> year;
+		cin >> month;
+		cin >> day;
+		Date date(Date(year, month, day));
 
-	// 	cin >> price;
-	// 	Car car(lik, date,  price);
-	// 	car.print();
-	// }
-	// else {
-	// 	int numCars;
-	// 	cin >> numCars;
+		cin >> price;
+		Car car(lik, date,  price);
+		car.print();
+	}
+	else {
+		int numCars;
+		cin >> numCars;
 
-	// 	Car cars[10];
-	// 	for (int i = 0; i < numCars; i++) {
-	// 		cin >> name;
-	// 		cin >> lastName;
-	// 		Person lik(name, lastName);
+		Car cars[10];
+		for (int i = 0; i < numCars; i++) {
+			cin >> name;
+			cin >> lastName;
+			Person lik(name, lastName);
 
-	// 		cin >> year;
-	// 		cin >> month;
-	// 		cin >> day;
-	// 		Date date(year, month, day);
+			cin >> year;
+			cin >> month;
+			cin >> day;
+			Date date(year, month, day);
 
-	// 		cin >> price;
-	// 		cars[i] = Car(lik, date,  price);
-	// 	}
-    //     float priceLimit;
-    //     cin >> priceLimit;
-	// 	cheaperThan(cars, numCars, priceLimit);
-	// }
+			cin >> price;
+			cars[i] = Car(lik, date,  price);
+		}
+        float priceLimit;
+        cin >> priceLimit;
+		cheaperThan(cars, numCars, priceLimit);
+	}
 
     // ZADACA 2
 
-    // char embg[13], ime[20], prezime[20], kategorija[20];
-    // int broj, n;
-    // cin >> n;
-    // for(int i = 0; i < n; i++){
-    // 	cin >> embg >> ime >> prezime;
-    // 	Potpisuvac p1(ime, prezime, embg);
-    // 	cin >> embg >> ime >> prezime;
-    // 	Potpisuvac p2(ime, prezime, embg);
-    // 	cin >> embg >> ime >> prezime;
-    // 	Potpisuvac p3(ime, prezime, embg);
-    // 	cin >> broj >> kategorija;
-    // 	Potpisuvac p[3];
-    // 	p[0] = p1; p[1] = p2; p[2] = p3;
-    // 	Dogovor d(broj, kategorija, p);
-    //     cout << "Dogovor " << broj << ":" << endl; 
-    // 	if(d.proverka() == true)
-    // 	    cout << "Postojat potpishuvaci so ist EMBG" << endl;
-    // 	else
-    // 	    cout << "Ne postojat potpishuvaci so ist EMBG" << endl;
-    // }
+    char embg[13], ime[20], prezime[20], kategorija[20];
+    int broj, n;
+    cin >> n;
+    for(int i = 0; i < n; i++){
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p1(ime, prezime, embg);
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p2(ime, prezime, embg);
+    	cin >> embg >> ime >> prezime;
+    	Potpisuvac p3(ime, prezime, embg);
+    	cin >> broj >> kategorija;
+    	Potpisuvac p[3];
+    	p[0] = p1; p[1] = p2; p[2] = p3;
+    	Dogovor d(broj, kategorija, p);
+        cout << "Dogovor " << broj << ":" << endl; 
+    	if(d.proverka() == true)
+    	    cout << "Postojat potpishuvaci so ist EMBG" << endl;
+    	else
+    	    cout << "Ne postojat potpishuvaci so ist EMBG" << endl;
+    }
     
-    // ZADACA 4
-
-    // int n;
-    // cin>>n;
-    // for(int i=0;i<n;i++){
-    //     int masaSirina,masaDolzina;
-    //     cin>>masaSirina;
-    //     cin>>masaDolzina;
-    //     Masa m(masaSirina,masaDolzina);
-    //     int sobaSirina,sobaDolzina;
-    //     cin>>sobaSirina;
-    //     cin>>sobaDolzina;
-    //     Soba s(sobaSirina,sobaDolzina,m);
-    //     char adresa[30];
-    //     cin>>adresa;
-    //     Kukja k(s,adresa);
-    //     k.pecati();
-	// }
-    
-
+    //ZAD 3
     char categoryName[20];
 	char articleTitle[30];
 	float price;
@@ -426,6 +445,49 @@ int main() {
     	FrontPage frontPage = FrontPage();
         frontPage.print();
     }
+
+    // ZADACA 4
+
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int masaSirina,masaDolzina;
+        cin>>masaSirina;
+        cin>>masaDolzina;
+        Masa m(masaSirina,masaDolzina);
+        int sobaSirina,sobaDolzina;
+        cin>>sobaSirina;
+        cin>>sobaDolzina;
+        Soba s(sobaSirina,sobaDolzina,m);
+        char adresa[30];
+        cin>>adresa;
+        Kukja k(s,adresa);
+        k.pecati();
+	}
+    
+
+    //ZADACA 5
+    
+    int n;
+    cin>>n;
+    Rabotnik rabotnik[n];
+    int minPlata;
+
+    for(int i=0; i<n;i++) {
+        char ime[30];
+        char prez[30];
+        int plata;
+        cin>>ime>>prez>>plata;
+        Rabotnik r(ime, prez, plata);
+
+        rabotnik[i] = r;
+    }
+
+    cin>>minPlata;
+    Fabrika fabrika(rabotnik, n);
+
+    fabrika.pecatiVraboteni();
+    fabrika.pecatiSoPlata(minPlata);
 
 	return 0;
 }
