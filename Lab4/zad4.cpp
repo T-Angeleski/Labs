@@ -3,142 +3,142 @@
 
 using namespace std;
 
-enum zanr {
-    akcija,
-    komedija,
-    drama
-};
+enum zanr {akcija, komedija, drama};
 
 class Film {
     char * ime;
     int size;
-    zanr tipZanr;
+    zanr zanrFilm;
 
     public:
-        Film() {
-            strcpy(ime, " ");
-            size=0;
-            tipZanr = (zanr)0;
-        }
-
-        Film(char * ime, int size, zanr tipZanr) {
+        Film(char * ime = " ", int size = 0, zanr zanrFilm = (zanr)0) {
             this->size = size;
-            this->tipZanr = tipZanr;
+            this->zanrFilm = zanrFilm;
 
-            this->ime = new char[strlen(ime)+ 1];
+            this->ime = new char [strlen(ime)+1];
             strcpy(this->ime, ime);
         }
 
         Film(const Film & other) {
             this->size = other.size;
-            this->tipZanr = other.tipZanr;
+            this->zanrFilm = other.zanrFilm;
 
-            this->ime = new char[strlen(other.ime)+ 1];
+            this->ime = new char [strlen(other.ime)+1];
             strcpy(this->ime, other.ime);
         }
 
-        Film& operator=(const Film & other) {
-            if (this != &other) {
+        Film & operator=(const Film & other) {
+            if( this != &other) {
                 this->size = other.size;
-                this->tipZanr = other.tipZanr;
+                this->zanrFilm = other.zanrFilm;
 
                 delete [] ime;
-                this->ime = new char[strlen(other.ime)+ 1];
+
+                this->ime = new char [strlen(other.ime)+1];
                 strcpy(this->ime, other.ime);
             }
             return *this;
+        }
+
+        int getSize() {
+            return size;
+        }
+
+        zanr getZanr() {
+            return zanrFilm;
         }
 
         ~Film() {
             delete [] ime;
         }
 
+
         void pecati() {
-            cout<<size<<"MB-"<<"\""<<ime<<"\""<<endl;
+            cout<<size<<"MB-\""<<ime<<"\""<<endl;
         }
-
-        int getCapacity() {
-            return size;
-        }
-
-        zanr getZanr() {
-            return tipZanr;
-        }
-
-        friend class DVD;
 };
+
 
 class DVD {
     Film filmovi[5];
     int brFilmovi;
-    int capacity; //vo MB
+    int cap;
 
     public:
-        DVD() {
-            brFilmovi = 0;
-            capacity = 0;
-        }
-
-        DVD(int brFilmovi):DVD() {
-            this->brFilmovi = brFilmovi;
+        DVD(int cap =0) {
+            this->brFilmovi = 0;
+            
+            this->cap = cap;
         }
 
         DVD(const DVD & other) {
             this->brFilmovi = other.brFilmovi;
-            this->capacity = other.capacity;
+            this->cap = other.cap;
 
-            
-            for (int i = 0; i < 5; i++) {
-                this->filmovi[i] = other.filmovi[i];
+            for(int i = 0; i<brFilmovi; i++) {
+                filmovi[i] = other.filmovi[i];
             }
         }
 
-        DVD& operator=(const DVD & other) {
-            if(this!= &other) {
+        DVD & operator=(const DVD & other) {
+            if( this != &other) {
                 this->brFilmovi = other.brFilmovi;
-                this->capacity = other.capacity;
+                this->cap = other.cap;
 
-                
-                for (int i = 0; i < 5; i++) {
-                    this->filmovi[i] = other.filmovi[i];
+                for(int i = 0; i<brFilmovi; i++) {
+                    filmovi[i] = other.filmovi[i];
                 }
             }
             return *this;
         }
-        
 
-        Film& getFilm(int n) {
-            return filmovi[n];
+        ~DVD () {}
+
+        Film getFilm(int i) {
+            return filmovi[i];
         }
 
-        
         int getBroj() {
             return brFilmovi;
         }
-        
 
-        void dodadiFilm(Film f) {
-            int memorija =0;
-            for(int i=0;i<brFilmovi;i++) {
-                memorija += filmovi[i].getCapacity();
+        void dodadiFilm(Film & f) {
+
+            // nov < vkupno-zbir && pomalce od 5 filmovi
+            int zbirSize = 0;
+            for(int i = 0; i<brFilmovi; i++) {
+                zbirSize += filmovi[i].getSize();
             }
 
-            int preostanatoMem = capacity - memorija;
-
-            if((brFilmovi < 5) && (f.size < preostanatoMem)) {
-                filmovi[brFilmovi] = f;
-                brFilmovi++;
+            if( brFilmovi < 5 && (f.getSize() < cap - zbirSize)) {
+                filmovi[brFilmovi++] = f;
             }
         }
 
-        void pecatiFilmoviDrugZanr(zanr r) {
-            for(int i=0; i<brFilmovi; i++) {
-                if(filmovi[i].getZanr() != r) {
+        void pecatiFilmoviDrugZanr(zanr  z) {
+            // koi ne se od toj zanr
+            for(int i = 0; i< brFilmovi ;i++) {
+                if(filmovi[i].getZanr() != z) {
                     filmovi[i].pecati();
                 }
             }
         }
 
+        float procentNaMemorijaOdZanr(zanr  z) {
+            //zbir / vkupno * 100 // samo od toj zanr
+            float procent = 0;
+            for(int i = 0 ; i<brFilmovi; i++) {
+                zanr filmZanr = filmovi[i].getZanr();
+                if( filmZanr = z) {
+                    procent += filmovi[i].getSize();
+                }
+            }
+
+            procent = procent / this->cap * 100;
+
+            return procent;
+
+        }
 };
 
 int main() {
