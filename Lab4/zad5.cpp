@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//Vasiot kod tuka
 class Pica{
     char ime[15];
     int cena;
@@ -125,6 +126,9 @@ class Picerija{
             Pica * tmp = new Pica[brPici + 1];
 
             for(int i=0;i<brPici;i++) {
+                if(pici[i].istiSe(other)) {
+                    return;
+                }
                 tmp[i] = pici[i];
             }
 
@@ -137,7 +141,7 @@ class Picerija{
 
         void piciNaPromocija() {
 
-            for(int i=0; i<brPici; i++) {
+             for(int i=0; i<brPici; i++) {
                 if(pici[i].getPopust() != 0) {
                     int cenaPica = pici[i].getCena();
                     int popust = pici[i].getPopust();
@@ -151,28 +155,52 @@ class Picerija{
         }
 };
 
+int main () {
 
+    int n;
+    char ime[15];
+    cin >> ime;
+    cin >> n;
 
-int main() {
-
-
-    Pica p1;
-    Pica p2("nigeriana", 50000, "crnci", 100);
-    Pica p3(p2);
-
-    Pica p4("test", 100, "hhh",100);
-    Pica p5;
-    p5 = p4;
-
-    p1.pecati();
-    p2.pecati();
-    p3.pecati();
-    p4.pecati();
-    p5.pecati();
-
-    if(p2.istiSe(p3)) {
-        cout<<"j jefe";
+    Picerija p1(ime);
+    for(int i = 0; i < n; i++){
+        char imp[100];
+        cin.get();
+        cin.getline(imp,100);
+        int cena;
+        cin >> cena;
+        char sostojki[100];
+        cin.get();
+        cin.getline(sostojki,100);
+        int popust;
+        cin >> popust;
+        Pica p(imp,cena,sostojki,popust);
+        p1.dodadi(p);
     }
 
-    return 0;
+    Picerija p2 = p1;
+    cin >> ime;
+    p2.setIme(ime);
+    char imp[100];
+    cin.get();
+    cin.getline(imp,100);
+    int cena;
+    cin >> cena;
+    char sostojki[100];
+    cin.get();
+    cin.getline(sostojki,100);
+    int popust;
+    cin >> popust;
+    Pica p(imp,cena,sostojki,popust);
+    p2.dodadi(p);
+
+    cout<<p1.getIme()<<endl;
+    cout<<"Pici na promocija:"<<endl;
+    p1.piciNaPromocija();
+
+    cout<<p2.getIme()<<endl;
+    cout<<"Pici na promocija:"<<endl;
+    p2.piciNaPromocija();
+
+	return 0;
 }
