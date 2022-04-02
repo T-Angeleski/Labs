@@ -141,7 +141,7 @@ class Picerija{
 
         void piciNaPromocija() {
 
-             for(int i=0; i<brPici; i++) {
+            for(int i=0; i<brPici; i++) {
                 if(pici[i].getPopust() != 0) {
                     int cenaPica = pici[i].getCena();
                     int popust = pici[i].getPopust();
