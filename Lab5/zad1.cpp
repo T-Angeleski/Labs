@@ -15,11 +15,12 @@ class Automobile {
         for(int i = 0 ; i < 5 ; i++) {
                 this->registracija[i] = other.registracija[i];
             }
-        this->brzina = brzina;
+        this->brzina = other.brzina;
     }
 
     public:
-        Automobile(char * marka ="", int * registracija=0, int brzina=0) {
+        Automobile() =default;
+        Automobile(char * marka, int * registracija, int brzina) {
             this->marka = new char [strlen(marka)+1];
             strcpy(this->marka, marka);
 
@@ -63,7 +64,7 @@ class Automobile {
 
         // Marka:име Registracija:[x y z k l]
         friend ostream & operator<<(ostream & out, Automobile & a) {
-            out<<"Marka=\t"<<a.marka<<"\tRegistracija[ ";
+            out<<"Marka\t"<<a.marka<<"\tRegistracija[ ";
             for(int i = 0 ; i < 5 ; i++) {
                 out<<a.registracija[i]<<" ";
             }
@@ -149,13 +150,53 @@ class RentACar {
         void pecatiNadBrzina(int max) {
             cout<<ime<<endl;
             for(int i = 0 ; i < num ; i++) {
-                if(koli[i].getBrzina() >= max) {
+                if(koli[i].getBrzina() > max) {
                     cout<<koli[i];
                 }
             }
         }
 };
 
-int main() {
+int main()
+{
+   RentACar agencija("FINKI-Car");
+   int n;
+   cin>>n;
+    
+   for (int i=0;i<n;i++)
+   {
+    	char marka[100];
+    	int regisracija[5];
+    	int maximumBrzina;
+    
+       	cin>>marka;
+    
+       	for (int i=0;i<5;i++)
+    		cin>>regisracija[i];
+    
+    	cin>>maximumBrzina;
+    
+       	Automobile nov=Automobile(marka,regisracija,maximumBrzina);
+       
+    	//dodavanje na avtomobil
+       	agencija+=nov;   
+       
+   }
+    //se cita grehsniot avtmobil, za koj shto avtmobilot so ista registracija treba da se izbrishe
+    char marka[100];
+    int regisracija[5];
+    int maximumBrzina;
+    cin>>marka;
+    for (int i=0;i<5;i++)
+    cin>>regisracija[i];
+    cin>>maximumBrzina;
+    
+    Automobile greshka=Automobile(marka,regisracija,maximumBrzina);
+    
+    //brishenje na avtomobil
+    agencija-=greshka;
+    
+    agencija.pecatiNadBrzina(150);
+    
     return 0;
 }
