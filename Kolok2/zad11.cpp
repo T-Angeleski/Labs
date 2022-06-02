@@ -99,7 +99,8 @@ private:
     static int BALET_PRICE;
 
     public:
-        Balet(Delo delo= nullptr, int num = 0, char* date = " ") : Pretstava(delo, num, date) {
+        Balet(Delo delo= nullptr, int num = 0, char* date = " ")
+         : Pretstava(delo, num, date) {
             //do nothing
         }
 
